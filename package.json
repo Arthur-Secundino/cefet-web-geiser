@@ -1,0 +1,29 @@
+{
+  "name": "cefet-web-geiser",
+  "version": "1.0.0",
+  "description": "atividade geiser",
+  "keywords": [
+    "geiser"
+  ],
+  "homepage": "https://github.com/Arthur-Secundino/cefet-web-geiser#readme",
+  "bugs": {
+    "url": "https://github.com/Arthur-Secundino/cefet-web-geiser/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arthur-Secundino/cefet-web-geiser.git"
+  },
+  "license": "ISC",
+  "author": "Arthur-Secundino",
+  "type": "commonjs",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
