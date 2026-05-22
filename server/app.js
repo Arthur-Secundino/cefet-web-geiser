@@ -38,6 +38,36 @@ app.get("/", (req, res) => {
 // jogador, usando os dados do banco de dados "data/jogadores.json" e
 // "data/jogosPorJogador.json", assim como alguns campos calculados
 // dica: o handler desta função pode chegar a ter ~15 linhas de código
+app.get("/jogador/:numero_identificador/", (req, res) => {
+    const numeroIdentificador = req.params.numero_identificador.replace(":", "");
+    const perfilJogador = db.jogadores.players.filter(jogador => jogador.steamid === numeroIdentificador)[0];
+
+    const jogosJogadorOrdenados = db.jogosPorJogador[numeroIdentificador].games.sort((a, b) => {
+        if(a.playtime_forever < b.playtime_forever){
+            return 1;
+        }
+        else if(a.playtime_forever === b.playtime_forever){
+            return 0;
+        }
+        else{
+            return -1;
+        }
+    }).slice(0, 5);
+    console.log(jogosJogadorOrdenados);
+    jogosJogadorOrdenados.forEach(jogo => {
+        jogo.playtime_forever = parseInt(jogo.playtime_forever / 60);
+    });
+    const numJogosNaoJogados = jogosJogadorOrdenados.filter(jogo => jogo.playtime_forever === 0).length;
+
+    res.render("jogador", {
+        perfil: perfilJogador,
+        idJogador: numeroIdentificador,
+        totalJogos: db.jogosPorJogador[numeroIdentificador].game_count,
+        naoJogados: numJogosNaoJogados,
+        jogoMaisJogado: jogosJogadorOrdenados[0],
+        jogos: jogosJogadorOrdenados
+    });
+});
 
 
 // EXERCÍCIO 1
